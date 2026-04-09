@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, TextInput, SafeAreaView } from 'react-native';
 import tw from '../lib/tailwind';
 
 export default function WorkoutScreen() {
+  const [sets, setSets] = useState([
+    { weight: '80', reps: '10', done: true },
+    { weight: '80', reps: '8', done: false },
+  ]);
+
+  const updateSet = (index, field, value) => {
+    setSets(prev => prev.map((s, i) => i === index ? { ...s, [field]: value } : s));
+  };
+
+  const toggleDone = (index) => {
+    setSets(prev => prev.map((s, i) => i === index ? { ...s, done: !s.done } : s));
+  };
+
+  const addSet = () => {
+    setSets(prev => [...prev, { weight: '', reps: '', done: false }]);
+  };
+
   return (
     <SafeAreaView style={tw`flex-1 bg-background`}>
       {/* TopAppBar */}
@@ -89,27 +106,35 @@ export default function WorkoutScreen() {
                 <Text style={tw`w-[15%] text-center text-[10px] font-label font-black text-on-surface-variant tracking-widest uppercase`}>DONE</Text>
               </View>
               
-              {/* Set 1 */}
-              <View style={tw`flex-row items-center w-full bg-surface-container-highest p-2 rounded-lg`}>
-                <Text style={tw`w-[15%] text-center font-headline font-bold text-on-surface-variant`}>1</Text>
-                <TextInput style={tw`w-[35%] text-center text-secondary-fixed font-headline font-bold`} placeholderTextColor="#565555" placeholder="80" />
-                <TextInput style={tw`w-[35%] text-center text-secondary-fixed font-headline font-bold`} placeholderTextColor="#565555" placeholder="10" />
-                <View style={tw`w-[15%] items-center justify-center`}>
-                  <View style={tw`w-5 h-5 rounded bg-secondary-fixed items-center justify-center`}><Text style={tw`text-black text-xs font-black`}>✓</Text></View>
+              {sets.map((set, index) => (
+                <View key={index} style={tw`flex-row items-center w-full bg-surface-container-highest p-2 rounded-lg`}>
+                  <Text style={tw`w-[15%] text-center font-headline font-bold ${set.done ? 'text-on-surface-variant' : 'text-on-surface'}`}>{index + 1}</Text>
+                  <TextInput
+                    style={tw`w-[35%] text-center font-headline font-bold ${set.done ? 'text-secondary-fixed' : 'text-on-surface'}`}
+                    placeholderTextColor="#565555"
+                    placeholder="0"
+                    value={set.weight}
+                    onChangeText={val => updateSet(index, 'weight', val)}
+                    keyboardType="numeric"
+                  />
+                  <TextInput
+                    style={tw`w-[35%] text-center font-headline font-bold ${set.done ? 'text-secondary-fixed' : 'text-on-surface'}`}
+                    placeholderTextColor="#565555"
+                    placeholder="0"
+                    value={set.reps}
+                    onChangeText={val => updateSet(index, 'reps', val)}
+                    keyboardType="numeric"
+                  />
+                  <TouchableOpacity style={tw`w-[15%] items-center justify-center`} onPress={() => toggleDone(index)}>
+                    {set.done
+                      ? <View style={tw`w-5 h-5 rounded bg-secondary-fixed items-center justify-center`}><Text style={tw`text-black text-xs font-black`}>✓</Text></View>
+                      : <View style={tw`w-5 h-5 rounded border border-on-surface-variant`} />
+                    }
+                  </TouchableOpacity>
                 </View>
-              </View>
-              
-              {/* Set 2 */}
-              <View style={tw`flex-row items-center w-full bg-surface-container-highest p-2 rounded-lg`}>
-                <Text style={tw`w-[15%] text-center font-headline font-bold text-on-surface`}>2</Text>
-                <TextInput style={tw`w-[35%] text-center text-on-surface font-headline font-bold`} value="80" />
-                <TextInput style={tw`w-[35%] text-center text-on-surface font-headline font-bold`} value="8" />
-                <View style={tw`w-[15%] items-center justify-center`}>
-                  <View style={tw`w-5 h-5 rounded border border-on-surface-variant`} />
-                </View>
-              </View>
+              ))}
 
-              <TouchableOpacity style={tw`w-full py-2 bg-surface-container-highest/50 border border-dashed border-outline-variant/30 rounded-lg items-center mt-2`}>
+              <TouchableOpacity onPress={addSet} style={tw`w-full py-2 bg-surface-container-highest/50 border border-dashed border-outline-variant/30 rounded-lg items-center mt-2`}>
                 <Text style={tw`text-[10px] font-label font-bold tracking-widest text-on-surface-variant`}>+ ADD SET</Text>
               </TouchableOpacity>
             </View>

@@ -30,7 +30,7 @@ export default function HomeScreen() {
           </View>
           <View style={tw`h-[500px] flex-col gap-4`}>
             {/* Main Article */}
-            <TouchableOpacity style={tw`flex-2 relative rounded-xl overflow-hidden`}>
+            <TouchableOpacity style={[{ flex: 2 }, tw`relative rounded-xl overflow-hidden`]}>
               <Image 
                 source={{ uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuATtmCr5T369M-3ke9EekfU-0nkX-eiTzke42RNIyScV-HmmGUlbb3Gm2DKxJDwOKa0qJfV6ek4ifziNDap_iad9ChXSjejXtmD-8KyRV7X-DqfEZIU1rCVDwKcQVwl179CVrUhul-YdG1DYKYgdD2J8MSA0zhgjPae_4o-IT2FrfRTgDn775B2a8W-IDsZvZy7Ah4snDPpxcvqUoq1LTBvTbCXm-1cq3zgKalCd1neOyqWTng58N4w-G14C3EOGQsk0406o3_Djps' }}
                 style={tw`absolute top-0 right-0 left-0 bottom-0 w-full h-full`}
@@ -65,7 +65,7 @@ export default function HomeScreen() {
                     source={{ uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDgxV8Z_3D4ivbWBdQUVXBzIXq5uzNbNb0RzfNoeOXSzurUOrYP5T0M9BziQr_x_wQXE_EqPsOI6DKYjEID9z1L0550bXsIuI1qMhD-mZSn11_GZIJA7UA2s4P9cdVLauR9gEDsfa9rhBZ8J_SOeRD_bOhmFqFSnpQ3SzkY66u1IoFQRCHp1Biy3WJrVNl2xq3qAnW-l5kV5aa7FMMzT2iGZwUonx6ARdiDw3iMj7W3kxaOXNSYQhuZCuRp27yB_DGI9lr9F7FIFZE' }}
                     style={tw`absolute top-0 right-0 left-0 bottom-0 w-full h-full opacity-60`}
                 />
-                <View style={tw`absolute inset-0 flex-col justify-end p-4 z-10`}>
+                <View style={tw`absolute top-0 right-0 left-0 bottom-0 flex-col justify-end p-4 z-10`}>
                     <Text style={tw`text-tertiary-fixed font-label text-[10px] font-black tracking-widest mb-1`}>NUTRITION</Text>
                     <Text style={tw`font-headline text-lg font-bold uppercase text-on-surface`}>Biohacking Breakfast</Text>
                 </View>

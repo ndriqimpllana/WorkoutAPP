@@ -2,6 +2,13 @@ import React from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 import tw from '../lib/tailwind';
 
+const COLORS = {
+  'primary-fixed': '#cafd00',
+  'secondary-fixed': '#00f4fe',
+  'tertiary-fixed': '#ff9190',
+  'outline-variant': '#484847',
+};
+
 export default function TrainingScreen() {
   return (
     <SafeAreaView style={tw`flex-1 bg-background`}>
@@ -69,17 +76,17 @@ export default function TrainingScreen() {
               { day: 'FRI', type: 'PULL', title: 'Back & Rear Delts', details: '10 Exercises • 90 Minutes', color: 'tertiary-fixed' },
               { day: 'SUN', type: 'REST', title: 'Active Recovery', details: 'Yoga & Mobility • 30 Minutes', color: 'outline-variant', opacity: 'opacity-40' },
             ].map((routine, i) => (
-              <TouchableOpacity key={i} style={tw`bg-surface-container-low rounded-2xl p-5 flex-row items-center gap-6 border border-outline-variant/10 ${routine.opacity || ''}`}>
-                <View style={tw`w-16 h-16 rounded-full border-2 border-${routine.color} flex-col items-center justify-center bg-surface-container-highest`}>
+              <TouchableOpacity key={i} style={[tw`bg-surface-container-low rounded-2xl p-5 flex-row items-center gap-6 border border-outline-variant/10`, routine.opacity ? { opacity: 0.4 } : null]}>
+                <View style={[tw`w-16 h-16 rounded-full flex-col items-center justify-center bg-surface-container-highest`, { borderWidth: 2, borderColor: COLORS[routine.color] }]}>
                   <Text style={tw`font-headline font-black text-xl leading-none text-on-surface`}>{routine.day}</Text>
-                  <Text style={tw`font-label text-[8px] text-${routine.color}`}>{routine.type}</Text>
+                  <Text style={[tw`font-label text-[8px]`, { color: COLORS[routine.color] }]}>{routine.type}</Text>
                 </View>
                 <View style={tw`flex-1`}>
                   <Text style={tw`font-headline font-bold text-xl uppercase tracking-tight text-on-surface`}>{routine.title}</Text>
                   <Text style={tw`text-on-surface-variant text-sm font-medium`}>{routine.details}</Text>
                 </View>
                 <View style={tw`w-10 h-10 rounded-full items-center justify-center bg-surface-container-highest border border-outline-variant/20`}>
-                  <Text style={tw`text-${routine.color}`}>▶</Text>
+                  <Text style={{ color: COLORS[routine.color] }}>▶</Text>
                 </View>
               </TouchableOpacity>
             ))}

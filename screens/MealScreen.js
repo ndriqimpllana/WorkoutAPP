@@ -2,6 +2,12 @@ import React from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 import tw from '../lib/tailwind';
 
+const COLORS = {
+  'primary-fixed': '#cafd00',
+  'secondary-fixed': '#00f4fe',
+  'tertiary-fixed': '#ff9190',
+};
+
 export default function MealScreen() {
   return (
     <SafeAreaView style={tw`flex-1 bg-background`}>
@@ -30,12 +36,12 @@ export default function MealScreen() {
               { label: 'Fats', val: '45g', pct: '32%', color: 'tertiary-fixed' },
             ].map((macro, i) => (
               <View key={i} style={tw`flex-1 bg-surface-container-low p-4 rounded-xl items-center justify-center gap-3 relative overflow-hidden`}>
-                <View style={tw`w-16 h-16 rounded-full border-4 border-${macro.color} items-center justify-center`}>
+                <View style={[tw`w-16 h-16 rounded-full items-center justify-center`, { borderWidth: 4, borderColor: COLORS[macro.color] }]}>
                     <Text style={tw`font-headline font-bold text-xs text-on-surface`}>{macro.pct}</Text>
                 </View>
                 <View style={tw`items-center`}>
                   <Text style={tw`font-label text-xs tracking-widest text-on-surface-variant uppercase`}>{macro.label}</Text>
-                  <Text style={tw`font-headline font-bold text-${macro.color}`}>{macro.val}</Text>
+                  <Text style={[tw`font-headline font-bold`, { color: COLORS[macro.color] }]}>{macro.val}</Text>
                 </View>
               </View>
             ))}
@@ -89,7 +95,7 @@ export default function MealScreen() {
                 <Image source={{ uri: meal.img }} style={tw`w-24 h-24 rounded-2xl bg-surface-container-highest border border-outline-variant/10`} />
                 <View style={tw`flex-1 justify-center border-b border-surface-container-highest pb-4`}>
                   <View style={tw`flex-row justify-between items-start`}>
-                    <Text style={tw`font-label text-[10px] tracking-widest text-${meal.color} font-bold uppercase`}>{meal.time}</Text>
+                    <Text style={[tw`font-label text-[10px] tracking-widest font-bold uppercase`, { color: COLORS[meal.color] ?? '#adaaaa' }]}>{meal.time}</Text>
                     <Text style={tw`text-on-surface-variant`}>{meal.icon}</Text>
                   </View>
                   <Text style={tw`font-headline font-bold text-xl text-white`}>{meal.title}</Text>
